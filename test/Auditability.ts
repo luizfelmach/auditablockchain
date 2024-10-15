@@ -21,22 +21,30 @@ describe("Auditability", function () {
     it("should be 10 hashesCount after adding 10 hashes", async function () {
       const { auditability } = await loadFixture(deployFixture);
       for (let i = 0; i < 10; i++) {
-        await auditability.storeHash("hash");
+        await auditability.store(`id-${i}`, "hash");
       }
       expect(await auditability.hashesCount()).to.equal(10);
     });
 
-    it("should return true after retrieving stored hash", async function () {
+    it("should return hash after retrieving stored hash", async function () {
       const { auditability } = await loadFixture(deployFixture);
-      await auditability.storeHash("hash");
-      expect(await auditability.recoverHash("hash")).to.true;
-      expect(await auditability.recoverHash("another-hash")).to.false;
+      await auditability.store("id", "hash");
+      expect(await auditability.retrieve("id")).to.equal("hash");
     });
 
-    it("should return false after retrieving no stored hash", async function () {
+    it("should revert after retrieving no stored hash", async function () {
       const { auditability } = await loadFixture(deployFixture);
-      await auditability.storeHash("hash");
-      expect(await auditability.recoverHash("another-hash")).to.false;
+      await expect(auditability.retrieve("some-id")).to.revertedWith(
+        "Id not founded"
+      );
+    });
+
+    it("should does not update id mapping to another hash", async function () {
+      const { auditability } = await loadFixture(deployFixture);
+      await auditability.store("id", "hash1");
+      await expect(auditability.store("id", "hash2")).to.be.revertedWith(
+        "Id can not updated"
+      );
     });
   });
 });

@@ -23,23 +23,30 @@ task("balance", "Prints an account's balance")
   });
 
 task("store", "Store hash on node")
+  .addPositionalParam("id", "Id to map")
   .addPositionalParam("hash", "Hash to store")
   .addParam("smart", "The smart contract's address")
   .setAction(async (taskArgs, hre) => {
-    const { hash, smart } = taskArgs;
+    const { id, hash, smart } = taskArgs;
     const Auditability = await hre.ethers.getContractFactory("Auditability");
     const auditability = (await Auditability.attach(smart)) as Auditability;
-    await auditability.storeHash(hash);
+    await auditability
+      .store(id, hash)
+      .catch((err) => console.log(err.message));
   });
 
-task("recover", "Recover hash on node")
-  .addPositionalParam("hash", "Hash to store")
+task("retrieve", "Retrieve hash on node")
+  .addPositionalParam("id", "Id to map")
   .addParam("smart", "The smart contract's address")
   .setAction(async (taskArgs, hre) => {
-    const { hash, smart } = taskArgs;
+    const { id, smart } = taskArgs;
     const Auditability = await hre.ethers.getContractFactory("Auditability");
-    const auditability = (await Auditability.attach(smart)) as Auditability;
-    console.log(await auditability.recoverHash(hash));
+    const auditability = Auditability.attach(smart) as Auditability;
+
+    await auditability
+      .retrieve(id)
+      .then(console.log)
+      .catch((err) => console.log(err.message));
   });
 
 export default config;
