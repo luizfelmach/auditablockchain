@@ -11,7 +11,7 @@ describe("Auditability", function () {
   }
 
   describe("Deployment", function () {
-    it("There are no hashes within the contract", async function () {
+    it("there are no hashes within the contract", async function () {
       const { auditability } = await loadFixture(deployFixture);
       expect(await auditability.hashesCount()).to.equal(0);
     });
