@@ -16,9 +16,7 @@ contract Auditability {
         hashesCount += 1;
     }
 
-    function retrieve(
-        string memory id
-    ) public view returns (string memory) {
+    function retrieve(string memory id) public view returns (string memory) {
         require(hashes[id].exists, "Id not founded");
         return hashes[id].value;
     }

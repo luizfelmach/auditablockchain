@@ -30,9 +30,7 @@ task("store", "Store hash on node")
     const { id, hash, smart } = taskArgs;
     const Auditability = await hre.ethers.getContractFactory("Auditability");
     const auditability = (await Auditability.attach(smart)) as Auditability;
-    await auditability
-      .store(id, hash)
-      .catch((err) => console.log(err.message));
+    await auditability.store(id, hash).catch((err) => console.log(err.message));
   });
 
 task("retrieve", "Retrieve hash on node")
