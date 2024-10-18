@@ -1,4 +1,8 @@
 {
+
+	"scripts": {
+		"audita": "ts-node dapp/cli.ts"
+	},
 	"devDependencies": {
 		"@nomicfoundation/hardhat-chai-matchers": "^2.0.0",
 		"@nomicfoundation/hardhat-ethers": "^3.0.0",
@@ -24,6 +28,7 @@
 	"dependencies": {
 		"@elastic/elasticsearch": "^8.15.1",
 		"@openzeppelin/merkle-tree": "^1.0.7",
+		"commander": "^12.1.0",
 		"dotenv": "^16.4.5",
 		"zod": "^3.23.8"
 	}
