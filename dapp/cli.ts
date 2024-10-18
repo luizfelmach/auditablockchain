@@ -3,10 +3,8 @@ import { syncIndex } from "./cases/sync-index";
 import { proofDoc } from "./cases/proof-doc";
 
 program
-  .name("audita")
-  .description(
-    "Audit blockchain transactions and interact with elastic search"
-  );
+  .name("dapp")
+  .description("Dapp blockchain transactions and interact with elastic search");
 
 program
   .command("sync")

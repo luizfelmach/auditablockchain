@@ -1,7 +1,7 @@
 {
 
 	"scripts": {
-		"audita": "ts-node dapp/cli.ts"
+		"dapp": "ts-node dapp/cli.ts"
 	},
 	"devDependencies": {
 		"@nomicfoundation/hardhat-chai-matchers": "^2.0.0",
