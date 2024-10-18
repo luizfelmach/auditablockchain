@@ -1,6 +1,7 @@
+import "./config/setup";
+
 import { program } from "commander";
-import { syncIndex } from "./cases/sync-index";
-import { proofDoc } from "./cases/proof-doc";
+import { syncIndex, proofDoc } from "./cases";
 
 program
   .name("dapp")

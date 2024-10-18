@@ -1,6 +1,6 @@
 import { SimpleMerkleTree } from "@openzeppelin/merkle-tree";
-import { DocNotFoundError } from "../error";
-import { hasher } from "../hasher";
+import { DocNotFoundError } from "../helpers/error";
+import { hasher } from "../helpers/hasher";
 import { ElasticService } from "../services/elastic";
 
 export async function proofDoc(index: string, id: string) {
@@ -16,8 +16,8 @@ export async function proofDoc(index: string, id: string) {
   const proof = merkle.getProof(pos);
   console.log({
     root: merkle.root,
-    proof,
     hash,
+    proof,
   });
 
   // TODO: get response from smart contracts with index, hash and proof

@@ -1,4 +1,4 @@
-import { elastic } from "../elastic";
+import { elastic } from "../providers/elastic";
 
 export class ElasticService {
   static async indexExists(index: string) {
