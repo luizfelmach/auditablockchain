@@ -20,7 +20,7 @@ generate_log() {
 generate_logs_infinitely() {
   while true; do
     generate_log >> data/access.log
-    sleep $(awk -v min=0.1 -v max=1 'BEGIN{srand(); print min+rand()*(max-min)}')  # Random sleep time between 0.1 and 1 second
+    sleep $(awk -v min=0.01 -v max=1 'BEGIN{srand(); print min+rand()*(max-min)}')  # Random sleep time between 0.1 and 1 second
   done
 }
 
