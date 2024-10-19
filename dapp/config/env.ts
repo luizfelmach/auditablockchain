@@ -8,6 +8,7 @@ const envSchema = z.object({
   SMART_CONTRACT: z
     .string()
     .min(1, "SMART_CONTRACT must be a non-empty string."),
+  PRIVATE_KEY: z.string().min(1, "PRIVATE_KEY must be a non-empty string."),
 });
 
 let env: z.infer<typeof envSchema>;

@@ -17,9 +17,8 @@ program
 program
   .command("proof")
   .argument("index", "Index on elastic search")
-  .argument("document", "Document id on index")
-  .action(async (index, id) => {
-    await proofDoc(index, id);
+  .action(async (index) => {
+    await proofDoc(index);
   });
 
 program.parse();
