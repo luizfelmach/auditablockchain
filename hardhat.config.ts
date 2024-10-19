@@ -22,27 +22,30 @@ task("balance", "Prints an account's balance")
     console.log(hre.ethers.formatEther(balance), "ETH");
   });
 
-task("store", "Store hash on node")
-  .addPositionalParam("id", "Id to map")
-  .addPositionalParam("hash", "Hash to store")
+task("store", "Store Merkle Root on blockchain")
+  .addPositionalParam("index", "Index to map")
+  .addPositionalParam("root", "Merkle Root to store")
   .addParam("smart", "The smart contract's address")
   .setAction(async (taskArgs, hre) => {
-    const { id, hash, smart } = taskArgs;
+    const { index, root, smart } = taskArgs;
     const Auditability = await hre.ethers.getContractFactory("Auditability");
-    const auditability = (await Auditability.attach(smart)) as Auditability;
-    await auditability.store(id, hash).catch((err) => console.log(err.message));
+    const auditability = Auditability.attach(smart) as Auditability;
+    await auditability
+      .store(index, root)
+      .catch((err) => console.log(err.message));
   });
 
-task("retrieve", "Retrieve hash on node")
-  .addPositionalParam("id", "Id to map")
+task("proof", "Proof off-chain Merkle Root")
+  .addPositionalParam("index", "Index to map")
+  .addPositionalParam("root", "Merkle Root to proof")
   .addParam("smart", "The smart contract's address")
   .setAction(async (taskArgs, hre) => {
-    const { id, smart } = taskArgs;
+    const { index, root, smart } = taskArgs;
     const Auditability = await hre.ethers.getContractFactory("Auditability");
     const auditability = Auditability.attach(smart) as Auditability;
 
     await auditability
-      .retrieve(id)
+      .proof(index, root)
       .then(console.log)
       .catch((err) => console.log(err.message));
   });

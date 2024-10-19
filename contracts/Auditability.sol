@@ -1,23 +1,23 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.27;
 
-struct Hash {
-    string value;
+struct MerkleRoot {
+    bytes32 value;
     bool exists;
 }
 
 contract Auditability {
-    mapping(string => Hash) hashes;
-    uint public hashesCount;
+    mapping(string => MerkleRoot) hashes;
 
-    function store(string memory id, string memory hash) public {
-        require(!hashes[id].exists, "Id can not updated");
-        hashes[id] = Hash(hash, true);
-        hashesCount += 1;
+    function store(string memory index, bytes32 root) public {
+        require(!hashes[index].exists, "Index already added.");
+        hashes[index] = MerkleRoot(root, true);
     }
 
-    function retrieve(string memory id) public view returns (string memory) {
-        require(hashes[id].exists, "Id not founded");
-        return hashes[id].value;
+    function proof(
+        string memory index,
+        bytes32 root
+    ) public view returns (bool) {
+        return hashes[index].value == root;
     }
 }
