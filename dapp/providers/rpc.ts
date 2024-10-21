@@ -1,6 +1,6 @@
 import { BaseContract, JsonRpcProvider, Provider, Wallet } from "ethers";
 import { env } from "../config/env";
-import { Auditability } from "../../typechain-types";
+import { Auditability } from "../../contracts/typechain-types";
 
 const abi = [
   {
