@@ -2,6 +2,7 @@ import "./config/setup";
 
 import { program } from "commander";
 import { syncIndex, proofDoc } from "./cases";
+import { app } from "./server";
 
 program
   .name("dapp")
@@ -20,5 +21,9 @@ program
   .action(async (index) => {
     await proofDoc(index);
   });
+
+program.command("server").action(async (_) => {
+  await app.listen(5612);
+});
 
 program.parse();
