@@ -85,9 +85,26 @@ services:
       - elasticsearch
     restart: unless-stopped
 
+  rabbitmq:
+    build:
+      context: rabbitmq/
+      args:
+        RABBITMQ_VERSION: ${RABBITMQ_VERSION}
+    ports:
+      - 5672:5672
+      - 15672:15672
+    networks:
+      - elk
+    environment:
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_DEFAULT_USER}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_DEFAULT_PASS}
+    volumes:
+      - rabbitmq:/var/lib/rabbitmq
+
 networks:
   elk:
     driver: bridge
 
 volumes:
   elasticsearch:
+  rabbitmq:
