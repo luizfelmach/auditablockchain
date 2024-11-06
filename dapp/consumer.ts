@@ -1,11 +1,11 @@
 import amqp from "amqplib";
 
 const RABBITMQ_URL = "amqp://rabbit:changeme@localhost:5672";
-const EXCHANGE_NAME = "log_exchange";
+const EXCHANGE_NAME = "logstash_exchange";
 const EXCHANGE_TYPE = "direct";
-const QUEUE_NAME = "log_queue";
-const ROUTING_KEY = "logstash_key";
-const BATCH_SIZE = 10;
+const QUEUE_NAME = "queue";
+const ROUTING_KEY = "logstash_queue";
+const BATCH_SIZE = 100;
 
 async function rabbitChannel() {
   try {
@@ -34,7 +34,7 @@ async function main() {
       console.log(`Processando lote de ${batch.length} mensagens.`);
 
       batch.forEach((message) => {
-        console.log(JSON.stringify(message.content.toString()));
+        // console.log(JSON.parse(message.content.toString()));
         channel.ack(message);
       });
       messageBatch = [];
@@ -57,7 +57,4 @@ async function main() {
   }
 }
 
-main();
-main();
-main();
 main();
