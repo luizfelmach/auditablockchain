@@ -62,8 +62,8 @@ services:
     environment:
       LS_JAVA_OPTS: -Xms256m -Xmx256m
       LOGSTASH_INTERNAL_PASSWORD: ${LOGSTASH_INTERNAL_PASSWORD:-}
-      RABBITMQ_DEFAULT_USER: ${RABBITMQ_DEFAULT_USER:-}
-      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_DEFAULT_PASS:-}
+      RABBITMQ_USER: ${RABBITMQ_USER:-}
+      RABBITMQ_PASS: ${RABBITMQ_PASS:-}
     networks:
       - elk
     depends_on:
@@ -97,11 +97,10 @@ services:
       - 15672:15672
     networks:
       - elk
-    environment:
-      RABBITMQ_DEFAULT_USER: ${RABBITMQ_DEFAULT_USER}
-      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_DEFAULT_PASS}
     volumes:
       - rabbitmq:/var/lib/rabbitmq
+      - ./rabbitmq/config/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf:ro,Z
+      - ./rabbitmq/config/definitions.json:/etc/rabbitmq/definitions.json:ro,Z
 
 networks:
   elk:

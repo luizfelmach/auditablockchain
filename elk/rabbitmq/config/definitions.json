@@ -1,0 +1,60 @@
+{
+  "users": [
+    {
+      "name": "rabbit",
+      "password_hash": "+VsN2rFW3Dl/0wWFFoiRaOpKAe++SrFa27bGRKC7inKSTwtE",
+      "hashing_algorithm": "rabbit_password_hashing_sha256",
+      "tags": ["administrator"],
+      "limits": {}
+    }
+  ],
+  "vhosts": [
+    {
+      "name": "/",
+      "description": "Default virtual host",
+      "tags": [],
+      "metadata": { "description": "Default virtual host", "tags": [] }
+    }
+  ],
+  "permissions": [
+    {
+      "user": "rabbit",
+      "vhost": "/",
+      "configure": ".*",
+      "write": ".*",
+      "read": ".*"
+    }
+  ],
+  "topic_permissions": [],
+  "parameters": [],
+  "policies": [],
+  "queues": [
+    {
+      "name": "queue",
+      "vhost": "/",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": { "x-queue-type": "classic" }
+    }
+  ],
+  "exchanges": [
+    {
+      "name": "logstash.exchange",
+      "vhost": "/",
+      "type": "fanout",
+      "durable": true,
+      "auto_delete": false,
+      "internal": false,
+      "arguments": {}
+    }
+  ],
+  "bindings": [
+    {
+      "source": "logstash.exchange",
+      "vhost": "/",
+      "destination": "queue",
+      "destination_type": "queue",
+      "arguments": {}
+    }
+  ]
+}
